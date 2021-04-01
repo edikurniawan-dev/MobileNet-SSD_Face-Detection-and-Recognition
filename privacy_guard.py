@@ -205,7 +205,7 @@ while True:
 	# converting the fps to string so that we can display it on frame
 	# by using putText function
 	fps = str(fps)
-	cv2.putText(frame, fps, (7, 70), cv2.FONT_HERSHEY_SIMPLEX, 3, (100, 255, 0), 2, cv2.LINE_AA)
+	cv2.putText(frame, fps, (7, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (100, 255, 0), 2, cv2.LINE_AA)
 
 	cv2.imshow("Frame", frame)
 	key = cv2.waitKey(1) & 0xFF
