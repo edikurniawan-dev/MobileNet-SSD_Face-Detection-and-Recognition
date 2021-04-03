@@ -15,8 +15,8 @@ def detect_face(frame, faceNet):
 	# mendefinisikan ukuran frame dan buat kedalam tipe blob
 
 	(h, w) = frame.shape[:2]
-	# blob = cv2.dnn.blobFromImage(frame, 1.0, (224, 224), (104.0, 177.0, 123.0))
-	blob = cv2.dnn.blobFromImage(frame, 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
+	blob = cv2.dnn.blobFromImage(frame, 1.0, (224, 224), (104.0, 177.0, 123.0))
+	# blob = cv2.dnn.blobFromImage(frame, 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
 	# blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
 
 
@@ -88,11 +88,11 @@ def predict_face():
 # prototxt_path = r"face_detector/deploy_mask.prototxt"
 # weights_path = r"face_detector/res10_300x300_ssd_iter_140000.caffemodel"
 
-# prototxt_path = 'MobileNet-SSD-master/deploy.prototxt'
-# weights_path = 'MobileNet-SSD-master/mobilenet_iter_73000.caffemodel'
+prototxt_path = 'MobileNet-SSD-master/deploy.prototxt'
+weights_path = 'MobileNet-SSD-master/mobilenet_iter_73000.caffemodel'
 
-prototxt_path = 'MobilenetSSDFace-master/models/deploy/ssd-face.prototxt'
-weights_path = 'MobilenetSSDFace-master/models/deploy/ssd-face.caffemodel'
+# prototxt_path = 'MobilenetSSDFace-master/models/deploy/ssd-face.prototxt'
+# weights_path = 'MobilenetSSDFace-master/models/deploy/ssd-face.caffemodel'
 
 face_net = cv2.dnn.readNet(prototxt_path, weights_path)
 
