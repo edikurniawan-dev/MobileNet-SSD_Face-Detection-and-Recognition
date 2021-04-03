@@ -4,7 +4,7 @@ import numpy as np
 
 # Define paths
 # base_dir = os.path.dirname(__file__)
-# prototxt_path = 'face_detector/deploy_mask.prototxt'
+# prototxt_path = 'face_detector/mobnet-ssd.prototxt'
 # caffemodel_path = 'face_detector/res10_300x300_ssd_iter_140000.caffemodel'
 
 prototxt_path = 'MobilenetSSDFace-master/models/deploy/ssd-face.prototxt'

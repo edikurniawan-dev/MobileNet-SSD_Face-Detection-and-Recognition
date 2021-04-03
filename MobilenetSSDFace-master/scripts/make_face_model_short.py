@@ -9,7 +9,7 @@ print(pattern)
 ref_net = caffe.Net('models/ssd_face/ssd_face_deploy_bn.prototxt', 
                     'models/ssd_face/best_bn_full.caffemodel', caffe.TRAIN)
                
-for mode in ['train','test','deploy','deploy_bn']:
+for mode in ['train','test','mobnet-ssd','deploy_bn']:
     with open('models/ssd_face/ssd_face_'+mode+'.prototxt', 'r') as f:
         net_par = NetParameter()
         txtf.Merge(f.read(), net_par)

@@ -53,7 +53,7 @@ for l in ref_net.params.keys():
     else:
         l2mask[l] = (np.logical_not(l2prevmask[l]), np.logical_not(l2nextmask[l]))
                
-for mode in ['train','test','deploy','deploy_bn']:
+for mode in ['train','test','mobnet-ssd','deploy_bn']:
     with open('models/ssd_face/ssd_face_'+mode+'.prototxt', 'r') as f:
         net_par = NetParameter()
         txtf.Merge(f.read(), net_par)

@@ -85,14 +85,14 @@ def predict_face():
 	return(label_name)
 
 # load our serialized face detector model from disk
-# prototxt_path = r"face_detector/deploy_mask.prototxt"
+# prototxt_path = r"face_detector/mobnet-ssd.prototxt"
 # weights_path = r"face_detector/res10_300x300_ssd_iter_140000.caffemodel"
 
-prototxt_path = 'MobileNet-SSD-master/deploy.prototxt'
-weights_path = 'MobileNet-SSD-master/mobilenet_iter_73000.caffemodel'
+# prototxt_path = 'mobnet-ssd.prototxt'
+# weights_path = 'weights.caffemodel'
 
-# prototxt_path = 'MobilenetSSDFace-master/models/deploy/ssd-face.prototxt'
-# weights_path = 'MobilenetSSDFace-master/models/deploy/ssd-face.caffemodel'
+# prototxt_path = 'MobilenetSSDFace-master/models/mobnet-ssd/ssd-face.prototxt'
+# weights_path = 'MobilenetSSDFace-master/models/mobnet-ssd/ssd-face.caffemodel'
 
 face_net = cv2.dnn.readNet(prototxt_path, weights_path)
 

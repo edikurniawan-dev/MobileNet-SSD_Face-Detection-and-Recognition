@@ -155,16 +155,16 @@ if __name__ == "__main__":
     }
     
     #reference network (bigger)
-    ref_net = caffe.Net('models/ssd_voc/deploy.prototxt', 
+    ref_net = caffe.Net('models/ssd_voc/mobnet-ssd.prototxt',
                     'models/ssd_voc/MobileNetSSD_deploy.caffemodel', 
                     caffe.TEST) 
     
     #reference network parameters
-    with open('models/ssd_voc/deploy.prototxt', 'r') as f:
+    with open('models/ssd_voc/mobnet-ssd.prototxt', 'r') as f:
         ref_par = NetParameter()
         txtf.Merge(f.read(), ref_par)
        
-    #new network parameters: train,test,deploy
+    #new network parameters: train,test,mobnet-ssd
     with open('models/ssd_face/ssd_face_train.prototxt', 'r') as f:
         train_par = NetParameter()
         txtf.Merge(f.read(), train_par)   

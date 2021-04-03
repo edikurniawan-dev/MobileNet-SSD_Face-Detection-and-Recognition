@@ -7,10 +7,13 @@ inWidth = 300
 inHeight = 300
 confThreshold = 0.5
 
-# prototxt = r'face_detector/deploy_mask.prototxt'
-# caffemodel = r'face_detector/res10_300x300_ssd_iter_140000.caffemodel'
-prototxt = 'MobilenetSSDFace-master/models/deploy/ssd-face.prototxt'
-caffemodel = 'MobilenetSSDFace-master/models/deploy/ssd-face.caffemodel'
+prototxt = r'face_detector/deploy.prototxt'
+caffemodel = r'face_detector/res10_300x300_ssd_iter_140000.caffemodel'
+# prototxt = 'MobilenetSSDFace-master/models/mobnet-ssd/ssd-face.prototxt'
+# caffemodel = 'MobilenetSSDFace-master/models/mobnet-ssd/ssd-face.caffemodel'
+
+# prototxt = 'face_detector/MobileNetSSD_deploy.prototxt'
+# caffemodel = 'face_detector/MobileNetSSD_deploy.caffemodel'
 
 
 net = dnn.readNetFromCaffe(prototxt, caffemodel)
@@ -30,9 +33,10 @@ while True:
 
 
     # frame = imutils.resize(flip_frame, width=540)
+    net.setInput(cv.dnn.blobFromImage(frame, 1.0, (inWidth, inHeight), (104.0, 177.0, 123.0), False, False))
+    # net.setInput(cv.dnn.blobFromImage(frame, 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False))
+    # net.setInput(cv.dnn.blobFromImage(frame, 1.0, (224, 224), (127.5, 127.5, 127.5), swapRB=True, crop=False))
 
-    # net.setInput(dnn.blobFromImage(frame, 1.0, (inWidth, inHeight), (104.0, 177.0, 123.0), False, False))
-    net.setInput(cv.dnn.blobFromImage(frame, 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False))
     detections = net.forward()
 
     perf_stats = net.getPerfProfile()
