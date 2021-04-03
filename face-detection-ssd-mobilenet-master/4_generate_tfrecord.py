@@ -1,6 +1,6 @@
 """
 Usage:
-  # From tensorflow/models/
+  # From tensorflow/mobnet-ssd-model/
   # Create train data:
   python 4_generate_tfrecord.py --images_path=data/tf_wider_train/images --csv_input=data/tf_wider_train/train.csv  --output_path=data/train.record
   # creates 847.6MB train.record

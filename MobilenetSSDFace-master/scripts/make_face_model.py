@@ -155,23 +155,23 @@ if __name__ == "__main__":
     }
     
     #reference network (bigger)
-    ref_net = caffe.Net('models/ssd_voc/mobnet-ssd.prototxt',
-                    'models/ssd_voc/MobileNetSSD_deploy.caffemodel', 
+    ref_net = caffe.Net('mobnet-ssd-model/ssd_voc/other-model-face-detector.prototxt',
+                    'mobnet-ssd-model/ssd_voc/MobileNetSSD_deploy.caffemodel',
                     caffe.TEST) 
     
     #reference network parameters
-    with open('models/ssd_voc/mobnet-ssd.prototxt', 'r') as f:
+    with open('mobnet-ssd-model/ssd_voc/other-model-face-detector.prototxt', 'r') as f:
         ref_par = NetParameter()
         txtf.Merge(f.read(), ref_par)
        
-    #new network parameters: train,test,mobnet-ssd
-    with open('models/ssd_face/ssd_face_train.prototxt', 'r') as f:
+    #new network parameters: train,test,other-model-face-detector
+    with open('mobnet-ssd-model/ssd_face/ssd_face_train.prototxt', 'r') as f:
         train_par = NetParameter()
         txtf.Merge(f.read(), train_par)   
-    with open('models/ssd_face/ssd_face_test.prototxt', 'r') as f:
+    with open('mobnet-ssd-model/ssd_face/ssd_face_test.prototxt', 'r') as f:
         test_par = NetParameter()
         txtf.Merge(f.read(), test_par)  
-    with open('models/ssd_face/ssd_face_deploy.prototxt', 'r') as f:
+    with open('mobnet-ssd-model/ssd_face/ssd_face_deploy.prototxt', 'r') as f:
         dep_par = NetParameter()
         txtf.Merge(f.read(), dep_par)
       
@@ -194,19 +194,19 @@ if __name__ == "__main__":
     dep_par = resize_network(dep_par, sizes, verbose=False)
     
     #write new parameters
-    with open('models/ssd_face_pruned/face_train.prototxt', 'w') as f:
+    with open('mobnet-ssd-model/ssd_face_pruned/face_train.prototxt', 'w') as f:
         f.write(txtf.MessageToString(train_par))
-    with open('models/ssd_face_pruned/face_test.prototxt', 'w') as f:
+    with open('mobnet-ssd-model/ssd_face_pruned/face_test.prototxt', 'w') as f:
         f.write(txtf.MessageToString(test_par))
-    with open('models/ssd_face_pruned/face_deploy.prototxt', 'w') as f:
+    with open('mobnet-ssd-model/ssd_face_pruned/face_deploy.prototxt', 'w') as f:
         f.write(txtf.MessageToString(dep_par))
     
     #load pruned net with empty parameters
-    new_net = caffe.Net('models/ssd_face_pruned/face_train.prototxt', 
-                        'models/empty.caffemodel', caffe.TRAIN)
+    new_net = caffe.Net('mobnet-ssd-model/ssd_face_pruned/face_train.prototxt',
+                        'mobnet-ssd-model/empty.caffemodel', caffe.TRAIN)
     
     #copy masked parameters to pruned net
     set_params(ref_net, new_net, train_par, blobmask)
     
     #save pruned net parameters
-    new_net.save('models/ssd_face_pruned/face_init.caffemodel')
+    new_net.save('mobnet-ssd-model/ssd_face_pruned/face_init.caffemodel')

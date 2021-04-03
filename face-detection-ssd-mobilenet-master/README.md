@@ -38,7 +38,7 @@ Read the comments and modify the config information in ssd_mobilenet_v1_face.con
 Just run:
 
 ```shell
-python models/research/object_detection/train.py --logtostderr --pipeline_config_path=ssd_mobilenet_v1_face.config  --train_dir=checkpoints_dir
+python mobnet-ssd-model/research/object_detection/train.py --logtostderr --pipeline_config_path=ssd_mobilenet_v1_face.config  --train_dir=checkpoints_dir
 ```
 
 
@@ -48,7 +48,7 @@ python models/research/object_detection/train.py --logtostderr --pipeline_config
 You can export the trained models using this: 
 
 ```shell
-python models/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path ssd_mobilenet_v1_face.config --trained_checkpoint_prefix checkpoints_dir/model.ckpt-200 --output_directory output_model/
+python mobnet-ssd-model/research/object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path ssd_mobilenet_v1_face.config --trained_checkpoint_prefix checkpoints_dir/model.ckpt-200 --output_directory output_model/
 ```
 
 Please modify the name of trained_checkpoint_prefix, like checkpoints_dir/model.ckpt-*number*, where *number* is the num_step in config file
@@ -60,7 +60,7 @@ Please modify the name of trained_checkpoint_prefix, like checkpoints_dir/model.
 You can evaluate the performance of your models using:
 
 ```shell
-python models/research/object_detection/eval.py --logtostderr --pipeline_config_path=ssd_mobilenet_v1_face.config  --checkpoint_dir=checkpoints_dir --eval_dir=eval
+python mobnet-ssd-model/research/object_detection/eval.py --logtostderr --pipeline_config_path=ssd_mobilenet_v1_face.config  --checkpoint_dir=checkpoints_dir --eval_dir=eval
 ```
 
 

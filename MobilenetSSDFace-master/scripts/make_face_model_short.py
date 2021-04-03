@@ -6,11 +6,11 @@ import sys
 pattern = sys.argv[1:]
 print(pattern)
 
-ref_net = caffe.Net('models/ssd_face/ssd_face_deploy_bn.prototxt', 
-                    'models/ssd_face/best_bn_full.caffemodel', caffe.TRAIN)
+ref_net = caffe.Net('mobnet-ssd-model/ssd_face/ssd_face_deploy_bn.prototxt',
+                    'mobnet-ssd-model/ssd_face/best_bn_full.caffemodel', caffe.TRAIN)
                
-for mode in ['train','test','mobnet-ssd','deploy_bn']:
-    with open('models/ssd_face/ssd_face_'+mode+'.prototxt', 'r') as f:
+for mode in ['train','test','other-model-face-detector','deploy_bn']:
+    with open('mobnet-ssd-model/ssd_face/ssd_face_'+mode+'.prototxt', 'r') as f:
         net_par = NetParameter()
         txtf.Merge(f.read(), net_par)
         
@@ -34,13 +34,13 @@ for mode in ['train','test','mobnet-ssd','deploy_bn']:
     del(newnet_par.layer[:])
     newnet_par.layer.extend(new_layers)
     
-    with open('models/ssd_face_pruned/face_'+mode+'.prototxt', 'w') as f:
+    with open('mobnet-ssd-model/ssd_face_pruned/face_'+mode+'.prototxt', 'w') as f:
         f.write(txtf.MessageToString(newnet_par))
         
-new_net = caffe.Net('models/ssd_face_pruned/face_deploy_bn.prototxt', 
-                    'models/ssd_face/best_bn_full.caffemodel', caffe.TEST)
+new_net = caffe.Net('mobnet-ssd-model/ssd_face_pruned/face_deploy_bn.prototxt',
+                    'mobnet-ssd-model/ssd_face/best_bn_full.caffemodel', caffe.TEST)
 
 #save pruned net parameters
-new_net.save('models/ssd_face_pruned/short_init.caffemodel')
+new_net.save('mobnet-ssd-model/ssd_face_pruned/short_init.caffemodel')
 
 print('\nDeleting layers 14-17')

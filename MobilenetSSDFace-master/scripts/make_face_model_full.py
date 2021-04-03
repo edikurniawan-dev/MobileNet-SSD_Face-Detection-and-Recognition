@@ -1,10 +1,10 @@
 import caffe
 
-ref_net = caffe.Net('models/ssd_voc/deploy_bn.prototxt', 
-                    'models/ssd_voc/mobilenet_iter_73000.caffemodel', 
+ref_net = caffe.Net('mobnet-ssd-model/ssd_voc/deploy_bn.prototxt',
+                    'mobnet-ssd-model/ssd_voc/mobilenet_iter_73000.caffemodel',
                     caffe.TRAIN)
-new_net = caffe.Net('models/ssd_face/ssd_face_deploy_bn.prototxt', 
-                    'models/empty.caffemodel', 
+new_net = caffe.Net('mobnet-ssd-model/ssd_face/ssd_face_deploy_bn.prototxt',
+                    'mobnet-ssd-model/empty.caffemodel',
                     caffe.TRAIN)
 for pn,blobs in new_net.params.items():
     print(pn)
@@ -22,6 +22,6 @@ for ln in new_net.params.keys():
     if skip:
         print('Skipping')
 
-new_net.save('models/ssd_face/face_init_full.caffemodel')
+new_net.save('mobnet-ssd-model/ssd_face/face_init_full.caffemodel')
 
 print('Model complete')

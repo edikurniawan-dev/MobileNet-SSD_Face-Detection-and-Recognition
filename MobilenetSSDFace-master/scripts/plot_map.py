@@ -38,7 +38,7 @@ for fn, it in fi:
     else:
         command = caf + ' train -solver ' + solver + ' -weights snapshots/' + fn
         #command = caf + ' train -solver train_files/solver_test.prototxt -weights snapshots/'+fn
-        #command = caf + ' test -model models/ssd_face_pruned/face_test.prototxt -weights snapshots/'+fn+' -iterations 200'
+        #command = caf + ' test -model mobnet-ssd-model/ssd_face_pruned/face_test.prototxt -weights snapshots/'+fn+' -iterations 200'
         stdout, stderr = subprocess.Popen(command.split(), 
                                          stdout=subprocess.PIPE, 
                                          stderr=subprocess.PIPE, 

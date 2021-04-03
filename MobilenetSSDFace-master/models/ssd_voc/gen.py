@@ -443,7 +443,7 @@ layer {
 
     def conv(self, name, out, kernel, stride=1, group=1, bias=False, bottom=None):
 
-      if self.stage == "mobnet-ssd": #for mobnet-ssd, merge bn to bias, so bias must be true
+      if self.stage == "other-model-face-detector": #for other-model-face-detector, merge bn to bias, so bias must be true
           bias = True
 
       if bottom is None:
@@ -494,7 +494,7 @@ layer {
       self.last = name
     
     def bn(self, name):
-      if self.stage == "mobnet-ssd":  #mobnet-ssd does not need bn, you can use merge_bn.py to generate a new caffemodel
+      if self.stage == "other-model-face-detector":  #other-model-face-detector does not need bn, you can use merge_bn.py to generate a new caffemodel
          return
       print(
 """layer {
@@ -759,7 +759,7 @@ layer {
           self.concat_boxes(['conv11', 'conv13', 'conv14_2', 'conv15_2', 'conv16_2', 'conv17_2'])
           if stage == "train":
              self.ssd_loss()
-          elif stage == "mobnet-ssd":
+          elif stage == "other-model-face-detector":
              self.ssd_predict()
           elif stage == "deploy_bn":
              self.ssd_predict()
@@ -784,7 +784,7 @@ if __name__ == '__main__':
       '-s','--stage',
       type=str,
       default='train',
-      help='The stage of prototxt, train|test|mobnet-ssd|deploy_bn.'
+      help='The stage of prototxt, train|test|other-model-face-detector|deploy_bn.'
   )
   parser.add_argument(
       '-d','--lmdb',

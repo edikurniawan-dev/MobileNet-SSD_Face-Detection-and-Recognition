@@ -5,8 +5,8 @@ import numpy as np
 from collections import OrderedDict
 from matplotlib import pyplot as plt
 
-ref_net = caffe.Net('models/ssd_face/ssd_face_deploy_bn.prototxt', 
-                    'models/ssd_face/best_bn_full.caffemodel', caffe.TRAIN)
+ref_net = caffe.Net('mobnet-ssd-model/ssd_face/ssd_face_deploy_bn.prototxt',
+                    'mobnet-ssd-model/ssd_face/best_bn_full.caffemodel', caffe.TRAIN)
 
 l2prevmask = OrderedDict()
 l2nextmask = OrderedDict()
@@ -18,7 +18,7 @@ for l in ref_net.params.keys():
     if 'scale' in l:
         mask = np.abs(ref_net.params[l][0].data) < eps
         plt.plot(np.sort(np.abs(ref_net.params[l][0].data)), 'bx-')
-        plt.savefig('./models/tmp/'+l.replace('/','_')+'.png')
+        plt.savefig('./mobnet-ssd-model/tmp/'+l.replace('/','_')+'.png')
         plt.clf()
         if prev_mask is not None:
             prev_mask = np.logical_or(prev_mask, mask)
@@ -53,8 +53,8 @@ for l in ref_net.params.keys():
     else:
         l2mask[l] = (np.logical_not(l2prevmask[l]), np.logical_not(l2nextmask[l]))
                
-for mode in ['train','test','mobnet-ssd','deploy_bn']:
-    with open('models/ssd_face/ssd_face_'+mode+'.prototxt', 'r') as f:
+for mode in ['train','test','other-model-face-detector','deploy_bn']:
+    with open('mobnet-ssd-model/ssd_face/ssd_face_'+mode+'.prototxt', 'r') as f:
         net_par = NetParameter()
         txtf.Merge(f.read(), net_par)
         
@@ -85,11 +85,11 @@ for mode in ['train','test','mobnet-ssd','deploy_bn']:
     del(newnet_par.layer[:])
     newnet_par.layer.extend(new_layers)
     
-    with open('models/ssd_face_pruned/face_'+mode+'.prototxt', 'w') as f:
+    with open('mobnet-ssd-model/ssd_face_pruned/face_'+mode+'.prototxt', 'w') as f:
         f.write(txtf.MessageToString(newnet_par))
         
-new_net = caffe.Net('models/ssd_face_pruned/face_deploy_bn.prototxt', 
-                    'models/empty.caffemodel', caffe.TEST)
+new_net = caffe.Net('mobnet-ssd-model/ssd_face_pruned/face_deploy_bn.prototxt',
+                    'mobnet-ssd-model/empty.caffemodel', caffe.TEST)
                     
 for l in new_net.params.keys():
     if 'mbox' in l:
@@ -113,7 +113,7 @@ for l in new_net.params.keys():
         new_net.params[l][0].data[...] = ref_net.params[l][0].data[outmask,:,:,:][:,inmask,:,:]
 
 #save pruned net parameters
-new_net.save('models/ssd_face_pruned/short_init.caffemodel')
+new_net.save('mobnet-ssd-model/ssd_face_pruned/short_init.caffemodel')
 
 
 for l, v in l2mask.items():

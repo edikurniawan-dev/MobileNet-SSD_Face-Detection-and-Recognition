@@ -9,6 +9,6 @@ echo ">>>>>"
 python3 ~/tensorflow_models/object_detection/eval.py --logtostderr --pipeline_config_path=ssd_mobilenet_v1_face.config  --checkpoint_dir=model_output --eval_dir=eval
 
 # Output:
-# INFO:tensorflow:Restoring parameters from /Users/dionvanvelde/Desktop/models/wider/train/model.ckpt-14378
-# INFO:tensorflow:Restoring parameters from /Users/dionvanvelde/Desktop/models/wider/train/model.ckpt-14378
+# INFO:tensorflow:Restoring parameters from /Users/dionvanvelde/Desktop/mobnet-ssd-model/wider/train/model.ckpt-14378
+# INFO:tensorflow:Restoring parameters from /Users/dionvanvelde/Desktop/mobnet-ssd-model/wider/train/model.ckpt-14378
 # WARNING:root:The following classes have no ground truth examples: 0

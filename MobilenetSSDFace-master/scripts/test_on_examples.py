@@ -35,7 +35,7 @@ if __name__ == "__main__":
     save_path = 'images/output/'
     proto = sys.argv[1]    
     
-    net = caffe.Net(proto, 'models/tmp/test.caffemodel', caffe.TEST)
+    net = caffe.Net(proto, 'mobnet-ssd-model/tmp/test.caffemodel', caffe.TEST)
     
     print('OK')
     
