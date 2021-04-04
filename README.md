@@ -1,1 +1,1 @@
-# MobileNet-SSD_Face-Recognition
+# MobileNet-SSD_Face-Detect-and-Recognition
