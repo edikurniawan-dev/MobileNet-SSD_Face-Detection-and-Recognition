@@ -4,23 +4,7 @@ import numpy as np
 import imutils
 from imutils.video import VideoStream
 
-prototxt_path = 'face-detector-model/ssd-model/deploy.prototxt'
-caffemodel_path = 'face-detector-model/ssd-model/res10_300x300_ssd_iter_140000.caffemodel'
-
-# prototxt_path = 'face-detector-model/mobnet-ssd-model/ssd-face.prototxt'
-# caffemodel_path = 'face-detector-model/mobnet-ssd-model/ssd-face.caffemodel'
-
-model = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
-
-# load all image in folder
-# for file in os.listdir(base_dir + 'images'):
-#     file_name, file_extension = os.path.splitext(file)
-#     if (file_extension in ['.png','.jpg']):
-#         print("Image path: {}".format(base_dir + 'images/' + file))
-
-vs = VideoStream(src=0).start()
-
-def detect_face(frame, key):
+def detect_and_crop_face(frame, key):
     if key == 32:
         frame = cv2.imread("dataset/edi/image_capture.jpg")
     (h, w) = frame.shape[:2]
@@ -49,6 +33,21 @@ def detect_face(frame, key):
         print("Image cropped successfully")
         os.remove("dataset/edi/image_capture.jpg")
 
+prototxt_path = 'face-detector-model/ssd-model/deploy.prototxt'
+caffemodel_path = 'face-detector-model/ssd-model/res10_300x300_ssd_iter_140000.caffemodel'
+
+# prototxt_path = 'face-detector-model/mobnet-ssd-model/ssd-face.prototxt'
+# caffemodel_path = 'face-detector-model/mobnet-ssd-model/ssd-face.caffemodel'
+
+model = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
+
+# load all image in folder
+# for file in os.listdir(base_dir + 'images'):
+#     file_name, file_extension = os.path.splitext(file)
+#     if (file_extension in ['.png','.jpg']):
+#         print("Image path: {}".format(base_dir + 'images/' + file))
+
+vs = VideoStream(src=0).start()
 count = 0
 while True:
     # grab the frame from the threaded video stream and resize it
@@ -65,10 +64,9 @@ while True:
         count += 1
         cv2.imwrite('dataset/edi/image_capture.jpg', flip_frame)
         print("Image captured!")
-        # crop_face(count)
-        detect_face(frame, key)
+        detect_and_crop_face(frame, key)
     else:
-        detect_face(frame, key=0)
+        detect_and_crop_face(frame, key=0)
 
     cv2.imshow("detections", frame)
 
