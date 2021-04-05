@@ -8,8 +8,8 @@ def detect_and_crop_face(frame, key):
     if key == 32:
         frame = cv2.imread("dataset/edi/image_capture.jpg")
     (h, w) = frame.shape[:2]
-    blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
-    # blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
+    # blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
+    blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
 
     model.setInput(blob)
     detections = model.forward()
@@ -33,11 +33,11 @@ def detect_and_crop_face(frame, key):
         print("Image cropped successfully")
         os.remove("dataset/edi/image_capture.jpg")
 
-prototxt_path = 'face-detector-model/ssd-model/deploy.prototxt'
-caffemodel_path = 'face-detector-model/ssd-model/res10_300x300_ssd_iter_140000.caffemodel'
+# prototxt_path = 'face-detector-model/ssd-model/deploy.prototxt'
+# caffemodel_path = 'face-detector-model/ssd-model/res10_300x300_ssd_iter_140000.caffemodel'
 
-# prototxt_path = 'face-detector-model/mobnet-ssd-model/ssd-face.prototxt'
-# caffemodel_path = 'face-detector-model/mobnet-ssd-model/ssd-face.caffemodel'
+prototxt_path = 'face-detector-model/mobnet-ssd-model/ssd-face.prototxt'
+caffemodel_path = 'face-detector-model/mobnet-ssd-model/ssd-face.caffemodel'
 
 model = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
 
