@@ -9,15 +9,12 @@ def detect_and_crop_face(frame, key):
         frame = cv2.imread("dataset/edi/image_capture.jpg")
     (h, w) = frame.shape[:2]
     # blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
-    blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
+    blob = cv2.dnn.blobFromImage(frame, 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
 
     model.setInput(blob)
     detections = model.forward()
 
     for i in range(0, detections.shape[2]):
-        box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
-        (startX, startY, endX, endY) = box.astype("int")
-
         box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
         (startX, startY, endX, endY) = box.astype("int")
         confidence = detections[0, 0, i, 2]
@@ -54,7 +51,7 @@ while True:
     # to have a maximum width of 400 pixels
     frame = vs.read()
     flip_frame = cv2.flip(frame, 1)
-    frame = imutils.resize(flip_frame, width=540)
+    frame = imutils.resize(flip_frame, width=1280)
 
     key = cv2.waitKey(1) & 0xFF
 
