@@ -51,7 +51,7 @@ while True:
     # to have a maximum width of 400 pixels
     frame = vs.read()
     flip_frame = cv2.flip(frame, 1)
-    frame = imutils.resize(flip_frame, width=1280)
+    frame = imutils.resize(flip_frame)
 
     key = cv2.waitKey(1) & 0xFF
 
@@ -65,7 +65,7 @@ while True:
     else:
         detect_and_crop_face(frame, key=0)
 
-    cv2.imshow("detections", frame)
+    cv2.imshow("Build Dataset", frame)
 
     # if the `q` key was pressed, break from the loop
     if key == ord("q") or key == ord("Q"):
