@@ -15,8 +15,8 @@ def detect_face(frame, faceNet):
 	# mendefinisikan ukuran frame dan buat kedalam tipe blob
 
 	(h, w) = frame.shape[:2]
-	blob = cv2.dnn.blobFromImage(frame, 1.0, (224, 224), (104.0, 177.0, 123.0))
-	# blob = cv2.dnn.blobFromImage(frame, 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
+	# blob = cv2.dnn.blobFromImage(frame, 1.0, (224, 224), (104.0, 177.0, 123.0))
+	blob = cv2.dnn.blobFromImage(frame, 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
 	# blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
 
 
@@ -85,17 +85,17 @@ def predict_face():
 	return(label_name)
 
 # load our serialized face detector model from disk
-prototxt_path = r"face-detector-model/ssd-model/deploy.prototxt"
-weights_path = r"face-detector-model/ssd-model/res10_300x300_ssd_iter_140000.caffemodel"
+# prototxt_path = r"face-detector-model/ssd-model/deploy.prototxt"
+# weights_path = r"face-detector-model/ssd-model/res10_300x300_ssd_iter_140000.caffemodel"
 
-# prototxt_path = 'MobilenetSSDFace-master/mobnet-ssd-model/other-model-face-detector/ssd-face.prototxt'
-# weights_path = 'MobilenetSSDFace-master/mobnet-ssd-model/other-model-face-detector/ssd-face.caffemodel'
+prototxt_path = 'face-detector-model/mobnet-ssd-model/ssd-face.prototxt'
+weights_path = 'face-detector-model/mobnet-ssd-model/ssd-face.caffemodel'
 
 face_net = cv2.dnn.readNet(prototxt_path, weights_path)
 
 # load the face mask detector model from disk
 # maskNet = load_model("face_recognition4.model")
-face_recog = load_model("facerecog-anime.model")
+face_recog = load_model("Facial_recogNet.h5")
 
 # initialize the video stream
 print("[INFO] starting video stream...")
@@ -115,7 +115,7 @@ while True:
 	# to have a maximum width of 400 pixels
 	frame = vs.read()
 	flip_frame = cv2.flip(frame, 1)
-	frame = imutils.resize(flip_frame, width=540)
+	frame = imutils.resize(flip_frame, width=1280)
 
 	(locs, preds, faces) = detect_face(frame, face_net)
 
@@ -146,7 +146,7 @@ while True:
 			win32gui.EnumWindows(callback, None)
 			return windows
 
-		window = get_window_hwnd("MobileNet-SSD")
+		window = get_window_hwnd("Python-VEnv")
 
 		tup = win32gui.GetWindowPlacement(window)
 		count = 0
@@ -202,7 +202,7 @@ while True:
 	# converting the fps to string so that we can display it on frame
 	# by using putText function
 	fps = str(fps)
-	cv2.putText(frame, fps, (7, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (100, 255, 0), 2, cv2.LINE_AA)
+	cv2.putText(frame, "FPS : "+fps, (0, 50), cv2.FONT_HERSHEY_SIMPLEX, 2, (100, 255, 0), 4, cv2.LINE_AA)
 
 	cv2.imshow("Frame", frame)
 	key = cv2.waitKey(1) & 0xFF
