@@ -28,7 +28,6 @@ def detect_and_predict_face(frame, faceNet, face_model):
 			(startX, startY) = (max(0, startX), max(0, startY))
 			(endX, endY) = (min(w - 1, endX), min(h - 1, endY))
 
-			cv2.rectangle(frame, (startX, startY), (endX, endY), (255, 255, 255), 1)
 			face_detect = frame[startY:endY, startX:endX]
 			# face_detect = cv2.cvtColor(face_detect, cv2.COLOR_BGR2RGB)
 			face_detect = cv2.resize(face_detect, (224, 224), interpolation=cv2.INTER_LINEAR)
@@ -38,23 +37,25 @@ def detect_and_predict_face(frame, faceNet, face_model):
 			face_detect = face_detect / 255
 			face_detect = face_detect.reshape(1, 224, 224, 3)
 
-
-			#
-			# faces.append(frame)
-			# locs.append((startX, startY, endX, endY))
-# only make a predictions if at least one face was detected
-# 	if len(faces) > 0:
-# 		# faces = np.array(faces, dtype="float32")
-# 		for i in range(len(faces)):
 			preds = np.argmax(face_model.predict(face_detect, 1, verbose=0), axis=1)
 			facial = pred[str(preds)]
-			# print(facial)
-		# preds = face_model.predict(faces, batch_size=32)
-			cv2.putText(frame, facial, (startX + 4, startY - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0))
 
+			if facial == "edi":
+				label = "Edi"
+				color = (0, 255, 0)
+			if facial == "habib":
+				label = "Habib"
+				color = (0, 255, 0)
+			if facial == "unknown":
+				label = "Unknown"
+				color = (0, 0, 255)
 
-	# return (locs, faces, facial)
+			# label = "{}: {:.2f}%".format(label)
+			label_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
 
+			cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
+			cv2.rectangle(frame, (startX, startY - 20), ((startX + label_size[0][0]) + 10, startY - 2), (255, 255, 255), cv2.FILLED)
+			cv2.putText(frame, label, (startX + 4, startY - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0))
 
 # load our serialized face detector model from disk
 prototxt_path = "face-detector-model/ssd-model/deploy.prototxt"
@@ -77,25 +78,6 @@ while True:
 	frame = imutils.resize(flip_frame, width=720)
 
 	detect_and_predict_face(frame, faceNet, model_recog)
-	# count = count + 1
-	# loop over the detected face locations and their corresponding
-	# locations
-	# facial = pred[str(prediction)]
-	# print(facial)
-
-	# for (box, face) in zip(locs, faces):
-	# 	# unpack the bounding box and predictions
-	# 	(startX, startY, endX, endY) = box
-	# 	# (edi, habib, unknown) = pred
-	# 	# cv2.rectangle(frame, (startX, startY), (endX, endY), 0, 255, 0, 2)
-	# 	# cv2.rectangle(frame, (startX, startY - 20), ((startX + label_size[0][0]) + 10, startY - 2), (255, 255, 255), cv2.FILLED)
-	# 	cv2.putText(frame, facial, (startX + 4, startY - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0))
-
-
-		# preds = np.argmax(face_model.predict(face_detect, 1, verbose=0), axis=1)
-
-	# print(box)
-		# print(preds)
 
 	cv2.imshow("Frame", frame)
 	key = cv2.waitKey(1) & 0xFF
