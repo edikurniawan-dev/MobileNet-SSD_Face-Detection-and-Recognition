@@ -68,12 +68,24 @@ def predict_face():
 	# for (box, pred) in zip(locs, preds):
 		# unpack the bounding box and predictions
 	(startX, startY, endX, endY) = box
-	(edi, unknown) = pred
+	(edi, habib, unknown) = pred
 
 	# determine the class label and color we'll use to draw
 	# the bounding box and text
-	label_name = "Edi" if edi > unknown else "Unknown"
-	color = (0, 255, 0) if label_name == "Edi" else (0, 0, 255)
+	# label_name = "Edi" if edi > unknown else "Unknown"
+	# color = (0, 255, 0) if label_name == "Edi" else (0, 0, 255)
+
+	if edi:
+		label_name = "Edi"
+	if habib:
+		label_name = "Habib"
+	if unknown:
+		label_name = "Unknown"
+
+	if label_name == "Edi" or label_name == "Habib":
+		color = (0, 255, 0)
+	else:
+		color = (0, 0, 255)
 
 	label = "{}: {:.2f}%".format(label_name, max(edi, unknown) * 100)
 	label_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)

@@ -7,14 +7,14 @@ import imutils
 import cv2
 import os
 
-def detect_and_predict_mask(frame, faceNet, face_model):
+def detect_and_predict_face(frame, faceNet, face_model):
 	(h, w) = frame.shape[:2]
-	# blob = cv2.dnn.blobFromImage(frame, 1.0, (224, 224),(104.0, 177.0, 123.0))
-	blob = cv2.dnn.blobFromImage(frame, 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
+	blob = cv2.dnn.blobFromImage(frame, 1.0, (224, 224),(104.0, 177.0, 123.0))
+	# blob = cv2.dnn.blobFromImage(frame, 1.0 / 127.5, (224, 224), (127.5, 127.5, 127.5), swapRB=True, crop=False)
 
 	faceNet.setInput(blob)
 	detections = faceNet.forward()
-	# print(detections.shape)
+	print(detections.shape)
 
 	faces = []
 	locs = []
@@ -23,64 +23,49 @@ def detect_and_predict_mask(frame, faceNet, face_model):
 	pred = {"[0]": "edi", "[1]": "habib", "[2]": "unknown"}
 	# loop over the detections
 	for i in range(0, detections.shape[2]):
-		# extract the confidence (i.e., probability) associated with
-		# the detection
-
-		box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
-		(startX, startY, endX, endY) = box.astype("int")
 		confidence = detections[0, 0, i, 2]
 
 		if confidence > 0.5:
-			# compute the (x, y)-coordinates of the bounding box for
-			# the object
-			# box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
-			# (startX, startY, endX, endY) = box.astype("int")
-			#
-			# # ensure the bounding boxes fall within the dimensions of
-			# # the frame
-			# (startX, startY) = (max(0, startX), max(0, startY))
-			# (endX, endY) = (min(w - 1, endX), min(h - 1, endY))
+			box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+			(startX, startY, endX, endY) = box.astype("int")
 
-			# extract the face ROI, convert it from BGR to RGB channel
-			# ordering, resize it to 224x224, and preprocess it
 			(startX, startY) = (max(0, startX), max(0, startY))
 			(endX, endY) = (min(w - 1, endX), min(h - 1, endY))
 
-			# cv2.rectangle(frame, (startX, startY), (endX, endY), (255, 255, 255), 1)
-			face = frame[startY:endY, startX:endX]
-			# face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
-			face = cv2.resize(face, (224, 224), interpolation=cv2.INTER_LINEAR)
+			cv2.rectangle(frame, (startX, startY), (endX, endY), (255, 255, 255), 1)
+			face_detect = frame[startY:endY, startX:endX]
+			face_detect = cv2.cvtColor(face_detect, cv2.COLOR_BGR2RGB)
+			face_detect = cv2.resize(face_detect, (224, 224))
 			# face = img_to_array(face)
 			# face = preprocess_input(face)
 
-			face = face / 255
-			face = face.reshape(1, 224, 224, 3)
+			face_detect = face_detect / 255
+			face_detect = face_detect.reshape(1, 224, 224, 3)
 
-			# face = face.reshape(1, 150528)
-			# print(face)
-			# 	input_im = cv2.resize(input_im, (224, 224), interpolation=cv2.INTER_LINEAR)
-			# 	input_im = input_im / 255
-			# 	input_im = input_im.reshape(1, 224, 224, 3)
 
-			# faces.append(face)
-			# locs.append((startX, startY, endX, endY))
 
-			# face_crop = frame[startY:endY, startX:endX]
-			# cv2.imwrite('dataset/temp/face' + str(count) + '.jpg', face_crop)
-			# print(face)
+			faces.append(frame)
+			locs.append((startX, startY, endX, endY))
 # only make a predictions if at least one face was detected
-	# if len(faces) > 0:
-			preds = np.argmax(face_model.predict(face, 1, verbose=0), axis=1)
-			facial = pred[str(preds)]
-			print(facial)
+	if len(faces) > 0:
+		# faces = np.array(faces, dtype="float32")
+		# for i in range(len(faces)):
+		preds = np.argmax(face_model.predict(face_detect, 1, verbose=0), axis=1)
+		facial = pred[str(preds)]
+		# print(facial)
 		# preds = face_model.predict(faces, batch_size=32)
 
-	# return preds
+		return (locs, faces, facial)
+	facial = "none"
+	return (locs, faces, facial)
 
 
 # load our serialized face detector model from disk
-prototxt_path = 'face-detector-model/mobnet-ssd-model/ssd-face.prototxt'
-weights_path = 'face-detector-model/mobnet-ssd-model/ssd-face.caffemodel'
+prototxt_path = "face-detector-model/ssd-model/deploy.prototxt"
+weights_path = "face-detector-model/ssd-model/res10_300x300_ssd_iter_140000.caffemodel"
+
+# prototxt_path = "face-detector-model/mobnet-ssd-model/ssd-face.prototxt"
+# weights_path = "face-detector-model/mobnet-ssd-model/ssd-face.caffemodel"
 faceNet = cv2.dnn.readNet(prototxt_path, weights_path)
 
 # load the face mask detector model from disk
@@ -95,19 +80,26 @@ while True:
 	flip_frame = cv2.flip(frame, 1)
 	frame = imutils.resize(flip_frame, width=720)
 
-	detect_and_predict_mask(frame, faceNet, model_recog)
+	(locs, faces, facial) = detect_and_predict_face(frame, faceNet, model_recog)
 	# count = count + 1
 	# loop over the detected face locations and their corresponding
 	# locations
 	# facial = pred[str(prediction)]
 	# print(facial)
 
-	# for (box, pred) in zip(locs, preds):
+	# for (box, face) in zip(locs, faces):
 	# 	# unpack the bounding box and predictions
 	# 	(startX, startY, endX, endY) = box
 	# 	# (edi, habib, unknown) = pred
-	# 	print(box)
-	# 	print(preds)
+	# 	# cv2.rectangle(frame, (startX, startY), (endX, endY), 0, 255, 0, 2)
+	# 	# cv2.rectangle(frame, (startX, startY - 20), ((startX + label_size[0][0]) + 10, startY - 2), (255, 255, 255), cv2.FILLED)
+	# 	cv2.putText(frame, facial, (startX + 4, startY - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0))
+
+
+		# preds = np.argmax(face_model.predict(face_detect, 1, verbose=0), axis=1)
+
+	# print(box)
+		# print(preds)
 
 	cv2.imshow("Frame", frame)
 	key = cv2.waitKey(1) & 0xFF
@@ -140,22 +132,22 @@ vs.stop()
 # image_file = os.listdir(path)
 # # print(image_file)
 #
-# # for i in range(many_file_in_dict):
-# path_image = os.path.join(path + image_file[0])
-# input_im = cv2.imread(path_image)
+# for i in range(many_file_in_dict):
+# 	path_image = os.path.join(path + image_file[i])
+# 	input_im = cv2.imread(path_image)
 #
-# # print(input_im)
-# # input_original = input_im.copy()
-# # input_original = cv2.resize(input_original, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
+# 	# print(input_im)
+# 	# input_original = input_im.copy()
+# 	# input_original = cv2.resize(input_original, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
 #
-# input_im = cv2.resize(input_im, (224, 224), interpolation=cv2.INTER_LINEAR)
-# input_im = input_im / 255
-# input_im = input_im.reshape(1, 224, 224, 3)
+# 	input_im = cv2.resize(input_im, (224, 224), interpolation=cv2.INTER_LINEAR)
+# 	input_im = input_im / 255
+# 	input_im = input_im.reshape(1, 224, 224, 3)
 #
-# print(input_im)
-	# res = np.argmax(model_recog.predict(input_im, 1, verbose=0), axis=1)
-
-	# draw_test(res, i + 1, path_image)
+# 	# print(input_im)
+# 	res = np.argmax(model_recog.predict(input_im, 1, verbose=0), axis=1)
+#
+# 	draw_test(res, i + 1, path_image)
 # # cv2.waitKey(0)
 
 cv2.destroyAllWindows()

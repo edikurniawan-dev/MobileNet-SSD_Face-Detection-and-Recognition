@@ -14,6 +14,8 @@ def detect_and_crop_face(frame, key):
     model.setInput(blob)
     detections = model.forward()
 
+    faces = []
+
     for i in range(0, detections.shape[2]):
         box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
         (startX, startY, endX, endY) = box.astype("int")
@@ -24,6 +26,8 @@ def detect_and_crop_face(frame, key):
             cv2.rectangle(frame, (startX, startY), (endX, endY), (255, 255, 255), 2)
             # cv2.imwrite('dataset/edi/image_face_box.jpg', image)
             frame = frame[startY:endY, startX:endX]
+
+            # faces.append(frame)
 
     if (key == 32):
         cv2.imwrite('dataset/edi/face' + str(count) + '.jpg', frame)
