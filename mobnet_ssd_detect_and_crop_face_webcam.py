@@ -1,4 +1,3 @@
-import os
 import cv2
 import numpy as np
 import imutils
@@ -17,7 +16,6 @@ def detect_and_crop_face(frame, key):
         (startX, startY, endX, endY) = box.astype("int")
         confidence = detections[0, 0, i, 2]
 
-        # If confidence > 0.5, show box around face
         if (confidence > 0.5):
             if key == 0:
                 cv2.rectangle(frame, (startX, startY), (endX, endY), (255, 255, 255), 2)
