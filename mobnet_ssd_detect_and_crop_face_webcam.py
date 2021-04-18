@@ -6,8 +6,8 @@ from imutils.video import VideoStream
 
 def detect_and_crop_face(frame, key):
     (h, w) = frame.shape[:2]
-    # blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
-    blob = cv2.dnn.blobFromImage(frame, 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
+    blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
+    # blob = cv2.dnn.blobFromImage(frame, 1.0 / 127.5, (300, 300), (127.5, 127.5, 127.5), swapRB=True, crop=False)
 
     model.setInput(blob)
     detections = model.forward()
@@ -19,18 +19,19 @@ def detect_and_crop_face(frame, key):
 
         # If confidence > 0.5, show box around face
         if (confidence > 0.5):
-            # cv2.rectangle(frame, (startX, startY), (endX, endY), (255, 255, 255), 2)
-            frame = frame[startY:endY, startX:endX]
-
+            if key == 0:
+                cv2.rectangle(frame, (startX, startY), (endX, endY), (255, 255, 255), 2)
             if key == 32:
+                frame = frame[startY:endY, startX:endX]
+                frame = cv2.resize(frame, (224, 224))
                 cv2.imwrite('dataset/testing/face' + str(count) + '.jpg', frame)
                 print("Image cropped successfully")
 
-# prototxt_path = 'face-detector-model/ssd-model/deploy.prototxt'
-# caffemodel_path = 'face-detector-model/ssd-model/res10_300x300_ssd_iter_140000.caffemodel'
+prototxt_path = 'face-detector-model/ssd-model/deploy.prototxt'
+caffemodel_path = 'face-detector-model/ssd-model/res10_300x300_ssd_iter_140000.caffemodel'
 
-prototxt_path = 'face-detector-model/mobnet-ssd-model/ssd-face.prototxt'
-caffemodel_path = 'face-detector-model/mobnet-ssd-model/ssd-face.caffemodel'
+# prototxt_path = 'face-detector-model/mobnet-ssd-model/ssd-face.prototxt'
+# caffemodel_path = 'face-detector-model/mobnet-ssd-model/ssd-face.caffemodel'
 
 model = cv2.dnn.readNetFromCaffe(prototxt_path, caffemodel_path)
 
