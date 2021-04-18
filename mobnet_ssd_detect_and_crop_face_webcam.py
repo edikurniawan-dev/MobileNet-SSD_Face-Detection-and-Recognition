@@ -42,9 +42,6 @@ while True:
 
     key = cv2.waitKey(1) & 0xFF
 
-    if key == ord("q") or key == ord("Q"):
-        break
-
     if key == 32:
         detect_and_crop_face(frame, key)
         count += 1
@@ -52,6 +49,9 @@ while True:
         detect_and_crop_face(frame, key=0)
 
     cv2.imshow("Build Dataset", frame)
+
+    if key == ord("q") or key == ord("Q"):
+        break
 
 cv2.destroyAllWindows()
 vs.stop()
