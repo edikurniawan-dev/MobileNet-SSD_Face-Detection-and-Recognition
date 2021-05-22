@@ -46,8 +46,8 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
 # prototxtPath = r"face-detector-model\ssd-model\deploy.prototxt"
 # weightsPath = r"face-detector-model\ssd-model\res10_300x300_ssd_iter_140000.caffemodel"
 
-prototxtPath = "face-detector-model/mobnet-ssd-model/ssd-face.prototxt"
-weightsPath = "face-detector-model/mobnet-ssd-model/ssd-face.caffemodel"
+prototxtPath = "face-detector-model/ssd-model1/ssd-face.prototxt"
+weightsPath = "face-detector-model/ssd-model1/ssd-face.caffemodel"
 
 faceNet = cv2.dnn.readNet(prototxtPath, weightsPath)
 

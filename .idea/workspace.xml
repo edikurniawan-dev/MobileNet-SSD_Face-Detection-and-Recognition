@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="397b3607-5048-4cc1-8d61-51b0dce54cc1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Facial_recog.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Facial_recogNet.h5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face_copy (1).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face_copy (10).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face_copy (2).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face_copy (3).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face_copy (4).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face_copy (5).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face_copy (6).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face_copy (7).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face_copy (8).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/edi/face_copy (9).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/21c6d44e86891930283ba50a9ccd101f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/49367016506_9b3fba118d_b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/949e1f1b9b79dc62adff7d3fb3bbb628.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/_104075392_73b2693d-d7eb-4357-8201-148f1a06127a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/arabian-woman-face-covered-hijab-260nw-643409845.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/fakhri-labib-ZhBGD4vykCU-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/gede-yuda-sugiarta.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/happy-asian-man-mustache-beard-260nw-336194147.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/human-person-lapangan-rektorat-univ-brawijaya-indonesia.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/rich-brian-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/shocked-face-asian-man-white-260nw-1566315607.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/unknown/stock-photo-portrait-one-person-blue-face-smile-indonesia-person-woman-glasses-0e1c43fb-e7cd-4350-b634-6dbb9de0c5ff.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/detect_face.py" beforeDir="false" afterPath="$PROJECT_DIR$/privacy_guard1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facerecog-anime.model" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/facerecog.h5" beforeDir="false" afterPath="$PROJECT_DIR$/facerecog.h5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/facerecog.model" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/privacy_guard_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/privacy_guard_test.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1rOpu8y8kXIr3saW9oWRhy4vG7Q" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="privacy_guard_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MobileNet-SSD_Face-Detector-and-Recognition" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/privacy_guard_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.privacy_guard_test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="397b3607-5048-4cc1-8d61-51b0dce54cc1" name="Default Changelist" comment="" />
+      <created>1618857218070</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618857218070</updated>
+    </task>
+    <servers />
+  </component>
+</project>
