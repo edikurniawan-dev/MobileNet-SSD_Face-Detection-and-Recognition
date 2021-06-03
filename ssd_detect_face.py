@@ -26,6 +26,7 @@ while True:
 	faces = []
 
 	for i in range(0, detections.shape[2]):
+		print(i)
 		confidence = detections[0, 0, i, 2]
 		box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
 		(startX, startY, endX, endY) = box.astype("int")
@@ -43,20 +44,12 @@ while True:
 			cv2.rectangle(frame, (startX, startY - 20), ((startX + label_size[0][0]) + 10, startY - 2), (255, 255, 255), cv2.FILLED)
 			cv2.putText(frame, label_full, (startX + 4, startY - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0))
 
-	# show the output frame
 	new_frame_time = time.time()
 
-	# fps will be number of frame processed in given time frame
-	# since their will be most of time error of 0.001 second
-	# we will be subtracting it to get more accurate result
 	fps = 1 / (new_frame_time - prev_frame_time)
 	prev_frame_time = new_frame_time
 
-	# converting the fps into integer
 	fps = int(fps)
-
-	# converting the fps to string so that we can display it on frame
-	# by using putText function
 	fps = "FPS:"+str(fps)
 	cv2.putText(frame, fps, (7, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (100, 255, 0), 2, cv2.LINE_AA)
 

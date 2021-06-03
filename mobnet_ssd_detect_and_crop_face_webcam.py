@@ -7,8 +7,6 @@ def detect_and_crop_face(frame, key):
     (h, w) = frame.shape[:2]
     blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0), swapRB=True)
 
-    # print(blob)
-
     model.setInput(blob)
     detections = model.forward()
 
@@ -19,7 +17,6 @@ def detect_and_crop_face(frame, key):
         confidence = detections[0, 0, i, 2]
 
         if (confidence > 0.5):
-            # print(i)
             if key == 0:
                 cv2.rectangle(frame, (startX, startY), (endX, endY), (255, 255, 255), 2)
             if key == 32:

@@ -31,13 +31,13 @@ def windows_d():
     keyboard.release('d')
     keyboard.release(Key.cmd)
 
-
+count = 0
 while True:
     frame = vs.read()
     frame = cv2.flip(frame, 1)
 
     (h, w) = frame.shape[:2]
-    blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300),(104.0, 177.0, 123.0))
+    blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
     face_net.setInput(blob)
     detections = face_net.forward()
     faces = []
@@ -53,9 +53,10 @@ while True:
             (endX, endY) = (min(w - 1, endX), min(h - 1, endY))
 
             face = frame[startY:endY+60, startX:endX+95]
+
             face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
             face = cv2.resize(face, (224, 224))
-            face = img_to_array(face)
+            # face = img_to_array(face)
             face = preprocess_input(face)
             face = np.expand_dims(face, axis=0)
 
@@ -118,8 +119,10 @@ while True:
 
     if len(faces) >= 2:
         counter_1 += 1
+        counter_2 = 0
+        counter_3 = 0
         if counter_1 == 5:
-            windows_d();
+            windows_d()
             window = "hide"
             # counter_2 = 0
             print("[INFO] Found {0} Faces. ".format(len(faces)), counter_2, window)
